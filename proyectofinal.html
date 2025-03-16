@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caja de Comentarios Super Cool :D</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: whitesmoke;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 50px;
+        }
+        h1 {
+            color: grey;
+        }
+        #formulario {
+            background-color: white;
+            border: 2px solid greenyellow;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px black;
+            width: 100%;
+            max-width: 500px;
+        }
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid gainsboro;
+            border-radius: 5px;
+            resize: none;
+        }
+        button {
+            background-color: green;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: green;
+        }
+        .comentario {
+            background-color: white;
+            border: 1px solid whitesmoke;
+            padding: 10px;
+            margin: 10px 0;
+            width: 100%;
+            max-width: 500px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            box-shadow: 0 2px 4px black;
+        }
+        .comentario .contenido {
+            flex: 1;
+        }
+        .comentario button {
+            background-color: red;
+            border: none;
+            color: white;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+        .comentario button:hover {
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Caja de Comentarios Super Cool :D</h1>
+    <form id="formulario">
+        <textarea id="inputComentario" rows="3" cols="50" placeholder="Escribe tu comentario..."></textarea>
+        <br>
+        <button type="submit">Agregar Comentario</button>
+    </form>
+    <div id="comentarios"></div>
+
+    <script>
+        document.getElementById("formulario").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const inputComentario = document.getElementById("inputComentario");
+            const texto = inputComentario.value.trim();
+
+            if (texto === "") return; // No agregar comentarios vacíos
+
+            const contenedorComentarios = document.getElementById("comentarios");
+            const nuevoComentario = document.createElement("div");
+            nuevoComentario.className = "comentario";
+            
+            const contenido = document.createElement("div");
+            contenido.className = "contenido";
+            contenido.innerHTML = `<strong>${new Date().toLocaleString()}</strong><br>${texto}`;
+
+            const botonEliminar = document.createElement("button");
+            botonEliminar.textContent = "Eliminar";
+            botonEliminar.onclick = function () {
+                contenedorComentarios.removeChild(nuevoComentario);
+            };
+
+            nuevoComentario.appendChild(contenido);
+            nuevoComentario.appendChild(botonEliminar);
+            contenedorComentarios.appendChild(nuevoComentario);
+
+            inputComentario.value = ""; // Limpiar el campo de texto
+        });
+    </script>
+</body>
+</html>
+
